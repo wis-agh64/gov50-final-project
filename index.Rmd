@@ -7,8 +7,31 @@ output:
     self_contained: false
 ---
 
+```{r setup, include = FALSE}
+options(width = 100)
+
+library(dplyr)
+library(tidyverse)
+```
+
 
 
 ## Project thoughts
 
-I am interested in exploring data about how changes in education policy might lead to a shift in political opinion/party affiliation in different areas of the US. 
+- This project intends to explore data on the influence of gender and race on job application callbacks (dataset taken from Kaggle: https://www.kaggle.com/datasets/utkarshx27/which-resume-attributes-drive-job-callbacks).
+
+
+```{r}
+
+data = read_csv("data/resume.csv", show_col_types = FALSE)
+
+summary = data |> mutate(gender = if_else(gender == "f", "Female", "Male")) |> group_by(race, gender) |> summarize(
+  received_callback_mean = mean(received_callback)
+)
+
+plot <- ggplot(summary, aes(x = race, y = received_callback_mean, fill = gender)) + geom_col(position = "dodge") + 
+  xlab("Perceived gender and race of job applicant (based on first name)") + ylab("Probability of receiving callback") + 
+  scale_fill_discrete(name = "Gender")
+print(plot)
+
+```
