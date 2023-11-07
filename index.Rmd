@@ -21,7 +21,7 @@ library(tidyverse)
 - This project intends to explore data on the influence of gender and race on job application callbacks (dataset taken from Kaggle: https://www.kaggle.com/datasets/utkarshx27/which-resume-attributes-drive-job-callbacks).
 
 
-```{r}
+```{r, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
 
 data = read_csv("data/resume.csv", show_col_types = FALSE)
 
